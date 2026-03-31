@@ -1,5 +1,6 @@
 package com.tech.carsales.service;
 
+import com.tech.carsales.dto.YearlyCountDto;
 import com.tech.carsales.dto.upload.UploadSalesResponse;
 import com.tech.carsales.entity.CarSales;
 import com.tech.carsales.repository.CarSalesRepository;
@@ -40,7 +41,6 @@ public class CarSalesServiceImpl implements CarSalesService {
             InputStream inputStream = file.getInputStream(); //raw bytes
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            bufferedReader.close();
 
             //CSV format
             CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
@@ -69,11 +69,11 @@ public class CarSalesServiceImpl implements CarSalesService {
                     carSales.setModel(record.get("Model"));
                     carSales.setColor(record.get("Color"));
                     carSales.setYear(Integer.parseInt(record.get("Year")));
-                    carSales.setDateOfPurchase(LocalDate.parse(record.get("Date of Purchase"), DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                    carSales.setDateOfPurchase(LocalDate.parse(record.get("Date of Purchase"), DateTimeFormatter.ofPattern("MM/dd/yyyy")));
                     carSales.setTimeOfPurchase(LocalTime.parse(record.get("Time of Purchase")));
-                    carSales.setPrice(Long.parseLong(record.get("Price (Rs)")));
-                    carSales.setMileage(Double.parseDouble(record.get("Mileage (km/l)")));
-                    carSales.setEngine(Integer.parseInt(record.get("Engine (CC)")));
+                    carSales.setPrice(Long.parseLong(record.get("Price")));
+                    carSales.setMileage(Double.parseDouble(record.get("Mileage")));
+                    carSales.setEngine(Integer.parseInt(record.get("Engine")));
                     carSales.setFuelType(record.get("Fuel Type"));
                     carSales.setPaymentMode(record.get("Payment Mode"));
                     carSales.setState(record.get("State"));
@@ -81,14 +81,21 @@ public class CarSalesServiceImpl implements CarSalesService {
                     carSales.setCustomerName(record.get("Customer Name"));
                     carSales.setContactNumber(record.get("Contact Number"));
                     carSales.setEmail(record.get("Email"));
-                    carSales.setWarrantyPeriod(Integer.parseInt(record.get("Warranty Period (years)")));
+                    carSales.setWarrantyPeriod(Integer.parseInt(record.get("Warranty Period")));
 
                     carSalesList.add(carSales);
+
                 } catch (Exception e) {
                     failCount++;
-                    log.info("Fail to Process Row:{} ",record.getRecordNumber());
+                    log.error(
+                            "Failed to process row {}: {}",
+                            record.getRecordNumber(),
+                            e.getMessage(),
+                            e
+                    );
                 }
             }
+            bufferedReader.close();
             if(!carSalesList.isEmpty()){
                 carSalesRepository.saveAll(carSalesList);
             }
@@ -98,5 +105,10 @@ public class CarSalesServiceImpl implements CarSalesService {
 
         int successCount = totalRecords - failCount;
         return new UploadSalesResponse(totalRecords,successCount,failCount);
+    }
+
+    @Override
+    public List<YearlyCountDto> getYearlyCarsCount() {
+        return carSalesRepository.getYearlyCount();
     }
 }
