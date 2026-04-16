@@ -1,5 +1,6 @@
 package com.tech.carsales.service;
 
+import com.tech.carsales.dto.MonthlyCountDto;
 import com.tech.carsales.dto.YearlyCountDto;
 import com.tech.carsales.dto.upload.UploadSalesResponse;
 import com.tech.carsales.entity.CarSales;
@@ -21,6 +22,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -110,5 +113,20 @@ public class CarSalesServiceImpl implements CarSalesService {
     @Override
     public List<YearlyCountDto> getYearlyCarsCount() {
         return carSalesRepository.getYearlyCount();
+    }
+
+    @Override
+    public List<MonthlyCountDto> getMonthlyCountByYear(int year) {
+        List<MonthlyCountDto> data =  carSalesRepository.getMonthlyCountByYear(year);
+        Map<Integer,Long> map = data.stream()
+                .collect(Collectors.toMap(
+                        MonthlyCountDto::month,
+                        MonthlyCountDto::count
+                ));
+        List<MonthlyCountDto>result = new ArrayList<>();
+        for (int i = 1; i <= 12; i++){
+            result.add(new MonthlyCountDto(i,map.getOrDefault(1,0L)));
+        }
+        return result;
     }
 }

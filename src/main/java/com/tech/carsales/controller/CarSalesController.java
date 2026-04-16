@@ -1,6 +1,7 @@
 package com.tech.carsales.controller;
 
 import com.tech.carsales.controller.commons.response.ApiResponse;
+import com.tech.carsales.dto.MonthlyCountDto;
 import com.tech.carsales.dto.YearlyCountDto;
 import com.tech.carsales.dto.upload.UploadSalesResponse;
 import com.tech.carsales.service.CarSalesService;
@@ -69,5 +70,16 @@ public class CarSalesController {
                 HttpStatus.OK.value()
         );
         return ResponseEntity.ok(response);
+    }
+    @PostMapping("/monthly-count")
+    public ResponseEntity<ApiResponse<List<MonthlyCountDto>>>monthlyCount(@RequestParam int year){
+        return ResponseEntity.ok(
+                new ApiResponse<>(
+                        true,
+                        "Monthly data read successfully",
+                        carSalesService.getMonthlyCountByYear(year),
+                        HttpStatus.OK.value()
+                )
+        );
     }
 }
