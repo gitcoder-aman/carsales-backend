@@ -71,7 +71,7 @@ public class CarSalesController {
         );
         return ResponseEntity.ok(response);
     }
-    @PostMapping("/monthly-count")
+    @GetMapping("/monthly-count")
     public ResponseEntity<ApiResponse<List<MonthlyCountDto>>>monthlyCount(@RequestParam int year){
         return ResponseEntity.ok(
                 new ApiResponse<>(
