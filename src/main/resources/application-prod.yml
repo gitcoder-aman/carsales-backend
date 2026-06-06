@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  ai:
+    ollama:
+      base-url: ${OLLAMA_BASE_URL}
+      chat:
+        options:
+          model: llama3
+
+server:
+  port: ${PORT:8080}
