@@ -1,18 +1,8 @@
-# Car Sales Analytics API
+# Car Sales Analytics & AI Query API
 
-A Spring Boot REST API for uploading car sales data from CSV files and generating yearly/monthly sales analytics.
+A Spring Boot backend application that allows users to upload car sales data through CSV files, analyze sales trends, and ask questions about the data using natural language powered by AI.
 
-## Tech Stack
-
-* Java 21
-* Spring Boot
-* Spring Data JPA
-* PostgreSQL (Neon Database)
-* Docker
-* Render Deployment
-* Maven
-
-## Live API
+## Live Demo
 
 Base URL:
 
@@ -22,19 +12,72 @@ https://carsales-backend-1fxb.onrender.com
 
 ## Features
 
-* Upload car sales data using CSV files
-* Store data in PostgreSQL
-* Get yearly sales count
-* Get monthly sales count for a specific year
-* RESTful APIs
-* Dockerized deployment
-* Hosted on Render
+### CSV Data Upload
+
+* Upload car sales records using CSV files
+* Bulk data import
+* Success and failure tracking
+* Validation support
+
+### Sales Analytics
+
+* Yearly sales count
+* Monthly sales count by year
+* PostgreSQL data storage
+
+### AI-Powered Query System
+
+* Ask questions in natural language
+* AI converts user questions into SQL queries
+* Executes queries securely
+* Returns human-friendly answers
+* Supports Hindi and English style questions
+
+Examples:
+
+```text
+How many Honda cars are available?
+
+How many cars were sold in 2024?
+
+Model City ke kitne car hai?
+
+How many UPI payments were made?
+```
+
+---
+
+## Tech Stack
+
+### Backend
+
+* Java 21
+* Spring Boot
+* Spring Data JPA
+* JDBC Template
+* Lombok
+
+### Database
+
+* PostgreSQL
+* Neon Database
+
+### AI
+
+* Spring AI
+* Ollama
+* Llama 3
+
+### Deployment
+
+* Docker
+* Render
 
 ---
 
 ## API Endpoints
 
-### Upload CSV File
+### Upload CSV
 
 **POST**
 
@@ -42,32 +85,21 @@ https://carsales-backend-1fxb.onrender.com
 /api/car-sales/upload-csv
 ```
 
-#### Request
+Request Type:
 
-Form Data:
+```text
+multipart/form-data
+```
 
-| Key  | Type          |
+Parameter:
+
+| Name | Type          |
 | ---- | ------------- |
 | file | MultipartFile |
 
-#### Response
-
-```json
-{
-  "success": true,
-  "message": "All Record Successfully",
-  "data": {
-    "successCount": 100,
-    "failedCount": 0,
-    "totalCount": 100
-  },
-  "status": 200
-}
-```
-
 ---
 
-### Get Yearly Sales Count
+### Yearly Sales Count
 
 **GET**
 
@@ -75,31 +107,15 @@ Form Data:
 /api/car-sales/yearly-count
 ```
 
-#### Example
+Example:
 
 ```http
 GET https://carsales-backend-1fxb.onrender.com/api/car-sales/yearly-count
 ```
 
-#### Response
-
-```json
-{
-  "success": true,
-  "message": "Data Read Successfully",
-  "data": [
-    {
-      "year": 2022,
-      "count": 150
-    }
-  ],
-  "status": 200
-}
-```
-
 ---
 
-### Get Monthly Sales Count
+### Monthly Sales Count
 
 **GET**
 
@@ -107,56 +123,81 @@ GET https://carsales-backend-1fxb.onrender.com/api/car-sales/yearly-count
 /api/car-sales/monthly-count?year=2024
 ```
 
-#### Example
+Example:
 
 ```http
 GET https://carsales-backend-1fxb.onrender.com/api/car-sales/monthly-count?year=2024
 ```
 
-#### Response
+---
 
-```json
-{
-  "success": true,
-  "message": "Monthly data read successfully",
-  "data": [
-    {
-      "month": "JANUARY",
-      "count": 25
-    }
-  ],
-  "status": 200
-}
+### Ask AI
+
+**POST**
+
+```http
+/api/ai/ask
+```
+
+Example Request Body:
+
+```text
+How many City model cars are available?
+```
+
+Example Response:
+
+```text
+There are 42 City model cars available in the database.
+```
+
+---
+
+## Project Architecture
+
+```text
+Client
+   |
+   v
+Spring Boot REST API
+   |
+   +---- Car Sales Module
+   |
+   +---- AI Query Module
+              |
+              v
+       SQL Generation
+              |
+              v
+        PostgreSQL
+              |
+              v
+      Human Friendly Response
 ```
 
 ---
 
 ## Run Locally
 
-### Clone Repository
+Clone Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/gitcoder-aman/carsales-backend.git
+```
+
+Move to project directory
+
+```bash
 cd carsales-backend
 ```
 
-### Configure Database
-
-Update:
-
-```yaml
-application-local.yml
-```
-
-with your PostgreSQL credentials.
-
-### Build Project
+Build
 
 ```bash
 ./mvnw clean package
 ```
 
-### Run Application
+Run
 
 ```bash
 ./mvnw spring-boot:run
@@ -164,14 +205,41 @@ with your PostgreSQL credentials.
 
 ---
 
+## Environment Variables
+
+Production Profile
+
+```properties
+DB_URL=
+DB_USERNAME=
+DB_PASSWORD=
+SPRING_PROFILES_ACTIVE=prod
+OLLAMA_BASE_URL=
+```
+
+---
+
 ## Deployment
 
-* Backend: Render
-* Database: Neon PostgreSQL
-* Containerization: Docker
+* Render (Backend Hosting)
+* Neon PostgreSQL (Database)
+* Docker (Containerization)
+
+---
+
+## Future Improvements
+
+* Swagger Documentation
+* Authentication & Authorization
+* Dashboard UI
+* Advanced AI Analytics
+* Data Visualization
+* AI Chart Generation
 
 ---
 
 ## Author
 
 Aman Kumar
+
+Backend Developer | Java | Spring Boot | PostgreSQL | AI Integration
