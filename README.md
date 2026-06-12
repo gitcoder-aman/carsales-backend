@@ -224,20 +224,59 @@ OLLAMA_BASE_URL=
 * Render (Backend Hosting)
 * Neon PostgreSQL (Database)
 * Docker (Containerization)
-
 ---
 
-## Future Improvements
-
-* Swagger Documentation
-* Authentication & Authorization
-* Dashboard UI
-* Advanced AI Analytics
-* Data Visualization
-* AI Chart Generation
-
----
-
+Directory structure:
+└── gitcoder-aman-carsales-backend/
+    ├── README.md
+    ├── Dockerfile
+    ├── mvnw
+    ├── mvnw.cmd
+    ├── pom.xml
+    ├── src/
+    │   ├── main/
+    │   │   ├── java/
+    │   │   │   └── com/
+    │   │   │       └── tech/
+    │   │   │           └── carsales/
+    │   │   │               ├── CarsalesApplication.java
+    │   │   │               ├── config/
+    │   │   │               │   └── AIConfig.java
+    │   │   │               ├── controller/
+    │   │   │               │   ├── AIController.java
+    │   │   │               │   ├── CarSalesController.java
+    │   │   │               │   └── commons/
+    │   │   │               │       └── response/
+    │   │   │               │           ├── ApiResponse.java
+    │   │   │               │           └── GlobalExceptionHandler.java
+    │   │   │               ├── dto/
+    │   │   │               │   ├── MonthlyCountDto.java
+    │   │   │               │   ├── YearlyCountDto.java
+    │   │   │               │   └── upload/
+    │   │   │               │       └── UploadSalesResponse.java
+    │   │   │               ├── entity/
+    │   │   │               │   └── CarSales.java
+    │   │   │               ├── repository/
+    │   │   │               │   └── CarSalesRepository.java
+    │   │   │               └── service/
+    │   │   │                   ├── AIQueryService.java
+    │   │   │                   ├── AIQueryServiceImpl.java
+    │   │   │                   ├── CarSalesService.java
+    │   │   │                   └── CarSalesServiceImpl.java
+    │   │   └── resources/
+    │   │       ├── application-local.yml
+    │   │       ├── application-prod.yml
+    │   │       └── application.yml
+    │   └── test/
+    │       └── java/
+    │           └── com/
+    │               └── tech/
+    │                   └── carsales/
+    │                       └── CarsalesApplicationTests.java
+    └── .mvn/
+        └── wrapper/
+            └── maven-wrapper.properties
+--------
 ## Author
 
 Aman Kumar
