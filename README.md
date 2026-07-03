@@ -8,6 +8,9 @@ Base URL:
 
 https://carsales-backend-1fxb.onrender.com
 
+Frontend url:
+https://carsalesui-iadza8exz3tvm6zxeaaqbe.streamlit.app/
+
 ---
 
 ## Features
