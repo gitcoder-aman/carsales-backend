@@ -20,9 +20,23 @@ spring:
       max-file-size: 5MB
       max-request-size: 5MB
 
+#  ai:
+#    ollama:
+#      base-url: http://localhost:11434
+#      chat:
+#        options:
+#          model: llama3
+
   ai:
-    ollama:
-      base-url: http://localhost:11434
-      chat:
-        options:
-          model: llama3
+#    openai:
+#      enabled: false
+#
+#    ollama:
+#      enabled: false
+
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          options:
+            model: ${GEMINI_MODEL}

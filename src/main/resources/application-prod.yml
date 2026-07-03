@@ -13,11 +13,18 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   ai:
-    ollama:
-      base-url: ${OLLAMA_BASE_URL}
-      chat:
-        options:
-          model: llama3
+#    ollama:
+#      base-url: ${OLLAMA_BASE_URL}
+#      chat:
+#        options:
+#          model: llama3
+
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          options:
+            model: ${GEMINI_MODEL}
 
 server:
   port: ${PORT:8080}
