@@ -125,7 +125,7 @@ public class CarSalesServiceImpl implements CarSalesService {
                 ));
         List<MonthlyCountDto>result = new ArrayList<>();
         for (int i = 1; i <= 12; i++){
-            result.add(new MonthlyCountDto(i,map.getOrDefault(1,0L)));
+            result.add(new MonthlyCountDto(i,map.getOrDefault(i,0L)));
         }
         return result;
     }
