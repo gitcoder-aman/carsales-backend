@@ -65,8 +65,8 @@ How many UPI payments were made?
 ### AI
 
 * Spring AI
-* Ollama
-* Llama 3
+* GEMINI_AI
+* gemini-2.5-flash
 
 ### Deployment
 
@@ -214,7 +214,7 @@ DB_URL=
 DB_USERNAME=
 DB_PASSWORD=
 SPRING_PROFILES_ACTIVE=prod
-OLLAMA_BASE_URL=
+GEMINI_API_KEY=
 ```
 
 ---
